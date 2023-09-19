@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use App\Models\User;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Contracts\RegisterResponse;
@@ -26,10 +27,10 @@ class FortifyServiceProvider extends ServiceProvider
             public function toResponse($request)
             {
                 if($request->wantsJson()) {
-                    $user = User::where('email', $request->email)->first();
+                    $user = User::where('name', $request->name)->first();
                     return response()->json([
                         "message" => "Logged in",
-                        "token" => $user->createToken($request->email)->plainTextToken,
+                        "token" => $user->createToken($request->name)->plainTextToken,
                     ], 200);
                 }
                 return redirect()->intended(\Fortify::redirects('login'));
@@ -40,10 +41,10 @@ class FortifyServiceProvider extends ServiceProvider
             public function toResponse($request)
             {
                 if($request->wantsJson()) {
-                    $user = User::where('email', $request->email)->first();
+                    $user = User::where('name', $request->name)->first();
                     return response()->json([
-                        "message" => "Logged in",
-                        "token" => $user->createToken($request->email)->plainTextToken,
+                        "message" => "User was registred",
+                        "token" => $user->createToken($request->name)->plainTextToken,
                     ], 200);
                 }
                 return redirect()->intended(\Fortify::redirects('login'));
