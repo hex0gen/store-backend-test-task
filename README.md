@@ -17,7 +17,7 @@ git clone git@github.com:hex0gen/store-backend-test-task.git store.local
 
 1. Install all dependencies trough composer
 ```
-composer install
+cd store.local && composer install
 ```
 
 2. Copy configuration example and setup APP_URL (basiclly http://store.local) & DB credentials
@@ -45,9 +45,9 @@ php artisan db:seed
 
 I used YARC! on Chrome to make requests to API. [Chrome Extension](https://chrome.google.com/webstore/detail/yet-another-rest-client/ehafadccdcdedbhcbddihehiodgcddpl) 
 
-# API Refrence
+# API reference
 
-Register new user: 
+### Register new user: 
 
 POST URL: 
 ```
@@ -56,4 +56,14 @@ http://store.local/api/v1/register
 Payload: 
 ```json 
 {"name": "user", "email": "alex@99.local", "password": "12345678", "password_confirmation": "12345678"}
+```
+
+### User authentication:
+POST URL: 
+```
+http://store.local/api/v1/login 
+```
+Payload: 
+```json 
+{"name": "user", "password": "12345678"}
 ```
