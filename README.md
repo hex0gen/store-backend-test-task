@@ -164,7 +164,7 @@ Payload:
 ```json
 {
     "user_id": 1,
-    "data": [1, 2] // product id's
+    "data": [1, 2] 
 }
 ```
 
@@ -177,6 +177,6 @@ Payload:
 ```json
 {
     "user_id": 1,
-    "data": [1, 2] // product id's
+    "data": [1, 2] 
 }
 ```
