@@ -112,10 +112,11 @@ Payload:
 ```json
 {
     "name": "Название продукта",
-    "price": 19.99,
-    "image_path": "<загрузите изображение>",
+    "price": 99.99,
+    "image_path": "<путь к изображению>",
     "description": "Описание продукта",
-    "is_available": 0
+    "is_available": 0,
+    "categories": ["Category 1", "Subcategory 2"]
 }
 ```
 
@@ -125,3 +126,20 @@ POST URL:
 http://store.local/api/v1/products/{product_id}/remove
 ```
 
+## Product categories
+
+### Create Category (admins only)
+POST URL:
+```
+http://store.local/api/v1/category/create
+```
+Payload:
+```json
+{
+{
+    "parent_id": 1,
+    "slug": "cat1",
+    "display_name": "Категория 1"
+}
+}
+```
