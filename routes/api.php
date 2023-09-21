@@ -8,6 +8,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Product\CategoryController;
+use App\Http\Controllers\CartController;
 use App\Http\Middleware\AdminCheck;
 
 
@@ -56,9 +57,12 @@ Route::group(
 
 			Route::post('/users/list', [UserController::class, 'list'])->name('users.list');
 			Route::post('/category/list', [ProductController::class, 'list'])->name('category.list');
-			 
+			
 			Route::post('/products/show/{product}', [ProductController::class, 'show']);
 			Route::post('/products/list', [ProductController::class, 'list']);
+			
+			Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
+			Route::post('/cart/{product_id}/remove', [CartController::class, 'removeFromCart'])->name('cart.product.remove');
 		});
 
 });

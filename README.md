@@ -41,6 +41,17 @@ php artisan migrate
 php artisan db:seed 
 ```
 
+# Run on Docker
+
+### get image from Hub
+docker pull hexogen/store-local
+
+### build image
+docker build -t store-local .
+
+### run container
+docker run -d -p 80:80 store-local
+
 # How to use
 
 I used YARC! on Chrome to make requests to API. [Chrome Extension](https://chrome.google.com/webstore/detail/yet-another-rest-client/ehafadccdcdedbhcbddihehiodgcddpl) 
@@ -136,10 +147,36 @@ http://store.local/api/v1/category/create
 Payload:
 ```json
 {
-{
     "parent_id": 1,
     "slug": "cat1",
     "display_name": "Категория 1"
 }
+```
+
+## Working with cart
+
+### Add product to cart
+POST URL:
+```
+http://store.local/api/v1/cart/create
+```
+Payload:
+```json
+{
+    "user_id": 1,
+    "data": [1, 2] // product id's
+}
+```
+
+### Remove product to cart
+POST URL:
+```
+http://store.local/api/v1/cart/{product_id}/remove
+```
+Payload:
+```json
+{
+    "user_id": 1,
+    "data": [1, 2] // product id's
 }
 ```
