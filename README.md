@@ -67,3 +67,61 @@ Payload:
 ```json 
 {"name": "user", "password": "12345678"}
 ```
+
+### Authorize ur requests with tokens
+
+POST URL:
+```
+http://store.local/api/v1/users/list
+```
+Headers
+```
+Authorization	Bearer {authorization_token}
+```
+
+## Products
+
+### List all products
+POST URL:
+```
+http://store.local/api/v1/products/list
+```
+
+### Create Product (admins only)
+POST URL:
+```
+http://store.local/api/v1/products/create
+```
+Payload:
+```json
+{
+    "name": "Название продукта",
+    "price": 99.99,
+    "image_path": "<путь к изображению>",
+    "description": "Описание продукта",
+    "is_available": 1
+}
+```
+
+### Edit Product (admins only)
+POST URL:
+```
+http://store.local/api/v1/products/{product_id}/edit
+```
+Payload:
+```json
+{
+    "name": "Название продукта",
+    "price": 19.99,
+    "image_path": "<загрузите изображение>",
+    "description": "Описание продукта",
+    "is_available": 0
+}
+```
+
+### Destroy Product (admins only)
+POST URL:
+```
+http://store.local/api/v1/products/{product_id}/remove
+```
+
