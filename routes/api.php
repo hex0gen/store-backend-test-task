@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Product\ProductController;
+use App\Http\Middleware\AdminCheck;
 
 
 /*
@@ -17,10 +20,6 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 $verificationLimiter = config('fortify.limiters.verification', '6,1');
 
@@ -38,4 +37,20 @@ Route::group(
 		Route::post('/register', [RegisteredUserController::class, 'store'])->middleware(['guest:'.config('fortify.guard')]);
 
 		Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->middleware(['guest:'.config('fortify.guard')])->name('password.email');
+		
+		Route::group(['middleware' => [AdminCheck::class]], function () {
+			// Маршруты, требующие прав администратора
+			Route::post('/products/create', [ProductController::class, 'store']);
+			Route::post('/products/{product}/edit', [ProductController::class, 'update']);
+			Route::post('/products/{product}/remove', [ProductController::class, 'destroy']);
+		
+		});
+
+		Route::middleware(['auth:sanctum'])->group(function () {
+
+			Route::post('/users/list', [UserController::class, 'list'])->name('users.list');
+			Route::post('/products/show/{product}', [ProductController::class, 'show']);
+			Route::post('/products/list', [ProductController::class, 'list']);
+		});
+
 });

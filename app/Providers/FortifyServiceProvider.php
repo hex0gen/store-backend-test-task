@@ -28,6 +28,7 @@ class FortifyServiceProvider extends ServiceProvider
             {
                 if($request->wantsJson()) {
                     $user = User::where('name', $request->name)->first();
+                    $auth = \Auth::login($user);
                     return response()->json([
                         "message" => "Logged in",
                         "token" => $user->createToken($request->name)->plainTextToken,
