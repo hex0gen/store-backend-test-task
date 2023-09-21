@@ -21,10 +21,6 @@ class Product extends Model
         'is_available'
     ];
 
-    public function categories(): BelongsToMany
-    {
-        return $this->belongsToMany(Category::class, 'product_categories', 'product_id', 'category_id');
-    }
 
     
 }

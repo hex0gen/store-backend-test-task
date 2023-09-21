@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Laravel\Sanctum\PersonalAccessToken;
+use App\Models\User;
 
 class AdminCheck
 {
@@ -17,15 +17,7 @@ class AdminCheck
     public function handle(Request $request, Closure $next): Response
     {
      
-        $token = $request->bearerToken();
-
-        if (!$token) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
-        $token = PersonalAccessToken::findToken($token);
-
-        $user = $token->tokenable;
+        $user = User::getByToken($request->bearerToken());
 
         if ($user && $user->is_admin) {
             return $next($request);

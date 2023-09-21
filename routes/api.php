@@ -7,6 +7,7 @@ use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Product\CategoryController;
 use App\Http\Middleware\AdminCheck;
 
 
@@ -43,12 +44,19 @@ Route::group(
 			Route::post('/products/create', [ProductController::class, 'store']);
 			Route::post('/products/{product}/edit', [ProductController::class, 'update']);
 			Route::post('/products/{product}/remove', [ProductController::class, 'destroy']);
+
+			Route::post('/category/create', [CategoryController::class, 'store']);
+			Route::post('/category/{category}/edit', [CategoryController::class, 'update']);
+			Route::post('/category/{category}/remove', [CategoryController::class, 'destroy']);
+
 		
 		});
 
 		Route::middleware(['auth:sanctum'])->group(function () {
 
 			Route::post('/users/list', [UserController::class, 'list'])->name('users.list');
+			Route::post('/category/list', [ProductController::class, 'list'])->name('category.list');
+			 
 			Route::post('/products/show/{product}', [ProductController::class, 'show']);
 			Route::post('/products/list', [ProductController::class, 'list']);
 		});

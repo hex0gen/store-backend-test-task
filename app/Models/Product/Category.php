@@ -11,6 +11,15 @@ class Category extends Model
 {
     use HasFactory;
 
+
+    public $timestamps = false;
+
+    protected $fillable = [
+        'parent_id',
+        'slug',
+        'display_name'
+    ];
+
     public function products(): BelongsToMany
     {
         return $this->BelongsToMany(Product::class, 'product_categories', 'category_id', 'product_id');
