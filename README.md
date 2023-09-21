@@ -168,7 +168,7 @@ Payload:
 }
 ```
 
-### Remove product to cart
+### Remove product from cart
 POST URL:
 ```
 http://store.local/api/v1/cart/{product_id}/remove
